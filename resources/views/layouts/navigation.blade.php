@@ -7,7 +7,7 @@
                 <div class="shrink-0 flex items-center gap-2">
                     <a href="{{ route('dashboard') }}" class="flex items-center gap-2 text-indigo-600">
                         <x-application-logo class="h-8 w-8" />
-                        <span class="text-lg font-bold text-gray-900 tracking-tight">GestorPro</span>
+                        <span class="text-lg font-bold text-gray-900 tracking-tight">TaskGest</span>
                     </a>
                 </div>
 

@@ -18,7 +18,7 @@
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-50">
             <a href="/" class="flex items-center gap-2 text-indigo-600">
                 <x-application-logo class="w-12 h-12" />
-                <span class="text-2xl font-bold text-gray-900 tracking-tight">GestorPro</span>
+                <span class="text-2xl font-bold text-gray-900 tracking-tight">TaskGestor</span>
             </a>
 
             <div class="w-full sm:max-w-md mt-6 px-6 py-6 bg-white border border-gray-200 sm:rounded-xl">
