@@ -46,7 +46,10 @@ class DatabaseSeeder extends Seeder
         $invitado->assignRole('invitado');
 
         $otrosUsuarios = User::factory(6)->create();
-        $otrosUsuarios->each(fn (User $user) => $user->assignRole('colaborador'));
+        $otrosLideres = $otrosUsuarios->take(2);
+        $otrosColaboradores = $otrosUsuarios->slice(2);
+        $otrosLideres->each(fn (User $user) => $user->assignRole('lider'));
+        $otrosColaboradores->each(fn (User $user) => $user->assignRole('colaborador'));
         $labels = Label::factory(5)->create();
 
         // Proyecto principal con los 4 usuarios semilla como miembros.
@@ -63,10 +66,12 @@ class DatabaseSeeder extends Seeder
 
         $this->crearTareasConComentarios($proyectoPrincipal, $otrosUsuarios->push($colaborador), $labels);
 
-        // Proyectos adicionales con datos aleatorios para poblar los listados.
-        Project::factory(4)->create()->each(function (Project $project) use ($otrosUsuarios, $labels) {
-            $miembros = $otrosUsuarios->random(3);
-            $roles = ['lider', 'colaborador', 'invitado'];
+        // Proyectos adicionales con datos aleatorios, cada uno con un lider real como dueño.
+        collect(range(1, 4))->map(fn () => Project::factory()->create([
+            'owner_id' => $otrosLideres->random()->id,
+        ]))->each(function (Project $project) use ($otrosColaboradores, $labels) {
+            $miembros = $otrosColaboradores->random(min(3, $otrosColaboradores->count()));
+            $roles = ['colaborador', 'invitado'];
 
             $project->members()->attach(
                 $miembros->mapWithKeys(fn (User $user, int $i) => [
@@ -74,7 +79,7 @@ class DatabaseSeeder extends Seeder
                 ])
             );
 
-            $this->crearTareasConComentarios($project, $miembros, $labels);
+            $this->crearTareasConComentarios($project, $miembros->push($project->owner), $labels);
         });
     }
 
