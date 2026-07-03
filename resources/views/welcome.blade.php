@@ -15,7 +15,7 @@
             <header class="max-w-5xl w-full mx-auto px-6 py-6 flex items-center justify-between">
                 <div class="flex items-center gap-2 text-indigo-600">
                     <x-application-logo class="h-8 w-8" />
-                    <span class="text-lg font-bold text-gray-900 tracking-tight">GestorPro</span>
+                    <span class="text-lg font-bold text-gray-900 tracking-tight">TaskGest</span>
                 </div>
 
                 <div class="flex items-center gap-3">
