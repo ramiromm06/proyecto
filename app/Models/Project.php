@@ -32,4 +32,10 @@ class Project extends Model
             ->withPivot('project_role')
             ->withTimestamps();
     }
+
+    public function isMember(User $user): bool
+    {
+        return $this->owner_id === $user->id
+            || $this->members()->where('user_id', $user->id)->exists();
+    }
 }

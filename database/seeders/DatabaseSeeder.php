@@ -19,27 +19,34 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call(RolePermissionSeeder::class);
+
         $admin = User::factory()->create([
             'name' => 'Administrador Demo',
             'email' => 'admin@gestorpro.test',
         ]);
+        $admin->assignRole('admin');
 
         $lider = User::factory()->create([
             'name' => 'Lider Demo',
             'email' => 'lider@gestorpro.test',
         ]);
+        $lider->assignRole('lider');
 
         $colaborador = User::factory()->create([
             'name' => 'Colaborador Demo',
             'email' => 'colaborador@gestorpro.test',
         ]);
+        $colaborador->assignRole('colaborador');
 
         $invitado = User::factory()->create([
             'name' => 'Invitado Demo',
             'email' => 'invitado@gestorpro.test',
         ]);
+        $invitado->assignRole('invitado');
 
         $otrosUsuarios = User::factory(6)->create();
+        $otrosUsuarios->each(fn (User $user) => $user->assignRole('colaborador'));
         $labels = Label::factory(5)->create();
 
         // Proyecto principal con los 4 usuarios semilla como miembros.
