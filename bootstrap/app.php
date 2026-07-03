@@ -17,6 +17,11 @@ return Application::configure(basePath: dirname(__DIR__))
             'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
             'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
         ]);
+
+        // Railway (y la mayoria de plataformas cloud) terminan TLS en su proxy y
+        // reenvian el trafico al contenedor por HTTP simple. Sin esto, Laravel no
+        // detecta que la peticion original fue HTTPS y genera URLs con http://.
+        $middleware->trustProxies(at: '*');
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(
